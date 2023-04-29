@@ -42,4 +42,39 @@ class PostController extends Controller
         $post = Post::where('is_published', 1)->first();
         dump ($post->title);
     }
+
+    /**
+     * Create new object by table posts
+     *
+     * @return void
+     */
+    public function create(): void
+    {
+        $postsArr = [
+              [
+                  'title' => 'title of post from phpstorm',
+                  'content' => 'some interesting content',
+                  'image' => 'image.jpg',
+                  'likes' => 20,
+                  'is_published' => 1,
+                  'created_at' => null,
+                  'updated_at' => null
+              ],
+
+              [
+                  'title' => 'another title of post from phpstorm',
+                  'content' => 'another some interesting content',
+                  'image' => 'another image.jpg',
+                  'likes' => 50,
+                  'is_published' => 1
+              ]
+        ];
+
+        foreach ($postsArr as $item){
+            Post::create($item);
+        }
+
+
+        dd('created');
+    }
 }

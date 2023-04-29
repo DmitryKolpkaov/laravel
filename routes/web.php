@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Route вывод напрямую
 Route::get('/', function () {
     return view('welcome');
 });
@@ -22,6 +23,11 @@ Route::get ('/test', function()
    return 'test';
 });
 
+//Route вывод через контроллер
+
+//MyPlaceController
 Route::get ('/my_place', 'App\Http\Controllers\MyPlaceController@index');
 
+//PostController
 Route::get ('/posts', 'App\Http\Controllers\PostController@index');
+Route::get ('/posts/create', 'App\Http\Controllers\PostController@create');
