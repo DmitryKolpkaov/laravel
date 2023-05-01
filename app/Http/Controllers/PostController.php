@@ -77,4 +77,44 @@ class PostController extends Controller
 
         dd('created');
     }
+
+    /**
+     * Updated
+     *
+     * @return void
+     */
+    public function update(): void
+    {
+        $post = Post::find(6);
+
+        $post->update([
+            'title' => 'updated',
+            'content' => 'updated',
+            'image' => 'updated',
+            'likes' => 100,
+            'is_published' => 0
+        ]);
+
+        dd('updated');
+    }
+
+    /**
+     * Deleted and restore
+     *
+     * @return void
+     */
+    public function delete(): void
+    {
+        //Удаление
+//        $post = Post::find(2);
+//        $post->delete();
+//
+//        dd ('deleted');
+
+        //Восстановление
+        $post = Post::withTrashed()->find(2);
+        $post->restore();
+
+        dd ('restore');
+    }
 }
