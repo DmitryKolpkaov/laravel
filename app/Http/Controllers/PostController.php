@@ -117,4 +117,68 @@ class PostController extends Controller
 
         dd ('restore');
     }
+
+    //Комбинированные запросы
+
+    /**
+     * firstOrCreate
+     * Если title существует, то он его просто вернет
+     * Если title не существует, то он создаст все указанные нами поля
+     *
+     * @return void
+     */
+    public function firstOrCreate(): void
+    {
+
+        $anotherPost = [
+            'title' => 'some post',
+            'content' => 'some content',
+            'image' => 'some image.jpg',
+            'likes' => 5000,
+            'is_published' => 1
+        ];
+
+        $post = Post::firstOrCreate([
+            'title' => 'some title phpstorm'
+        ],[
+            'title' => 'some title phpstorm',
+            'content' => 'some content',
+            'image' => 'some image.jpg',
+            'likes' => 5000,
+            'is_published' => 1
+        ]);
+        dump ($post->content);
+        dd ('finished');
+    }
+
+
+    /**
+     * updateOrCreate
+     * Если title существует, то он его просто вернет и изменит какие то другие поля, если это нужно, выполнит update
+     * Если title не существует, то он создаст все указанные нами поля
+     *
+     * @return void
+     */
+    public function updateOrCreate(): void
+    {
+        $anotherPost = [
+            'title' => 'some title phpstorm',
+            'content' => 'updateorcreate some content',
+            'image' => 'updateorcreate some image.jpg',
+            'likes' => 500,
+            'is_published' => 0
+        ];
+
+        $post = Post::updateOrCreate([
+            'title' => 'some title phpstorm'
+        ],[
+            'title' => 'some title phpstorm',
+            'content' => 'updateorcreate some content',
+            'image' => 'updateorcreate some image.jpg',
+            'likes' => 500,
+            'is_published' => 0
+        ]);
+
+        dump ($post->content);
+    }
 }
