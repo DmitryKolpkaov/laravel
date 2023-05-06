@@ -39,8 +39,9 @@ class PostController extends Controller
 //
 //        dd($data);
 
-        $post = Post::where('is_published', 1)->first();
-        dump ($post->title);
+        $posts = Post::all();
+
+        return view('posts', compact('posts'));
     }
 
     /**
