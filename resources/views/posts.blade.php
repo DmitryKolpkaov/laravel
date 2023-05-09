@@ -1,13 +1,6 @@
 @extends('layouts.main')
 @section('content')
     <h1>This is posts page</h1>
-    <div>
-        @foreach($posts as $post)
-            <div>{{$post->title}}</div>
-            <div>{{$post->content}}</div>
-            <div>{{$post->likes}}</div>
-        @endforeach
-    </div>
 
     <table class="table table-success table-striped-columns">
         <thead>
@@ -38,4 +31,15 @@
         </tr>
         </tbody>
     </table>
+@endsection
+
+@section('database')
+    <h1>This is posts from database</h1>
+    <div>
+        @foreach($posts as $post)
+            <div>{{$post->title}}</div>
+            <div>{{$post->content}}</div>
+            <div>{{$post->likes}}</div>
+        @endforeach
+    </div>
 @endsection

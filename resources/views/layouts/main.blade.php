@@ -33,6 +33,7 @@
         </nav>
     </div>
     @yield('content')
+    @yield('database')
 </div>
 
 
