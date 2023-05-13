@@ -41,62 +41,63 @@ class PostController extends Controller
 
         $posts = Post::all();
 
-        return view('posts', compact('posts'));
+        return view('post.index', compact('posts'));
     }
 
     /**
      * Create new object by table posts
      *
-     * @return void
+     *
      */
-    public function create(): void
+    public function create()
     {
-        $postsArr = [
-              [
-                  'title' => 'title of post from phpstorm',
-                  'content' => 'some interesting content',
-                  'image' => 'image.jpg',
-                  'likes' => 20,
-                  'is_published' => 1,
-                  'created_at' => null,
-                  'updated_at' => null
-              ],
 
-              [
-                  'title' => 'another title of post from phpstorm',
-                  'content' => 'another some interesting content',
-                  'image' => 'another image.jpg',
-                  'likes' => 50,
-                  'is_published' => 1
-              ]
-        ];
+        return view('post.create');
+    }
 
-        foreach ($postsArr as $item){
-            Post::create($item);
-        }
+    public function store()
+    {
+        $data = request()->validate([
+            'title'=> 'string',
+            'content'=> 'string',
+            'image'=> 'string'
+        ]);
+        Post::create($data);
 
+        return redirect()->route('post.index');
+    }
 
-        dd('created');
+    public function show(Post $post)
+    {
+        return view('post.show', compact('post'));
+    }
+
+    public function  edit(Post $post)
+    {
+        return view('post.edit', compact('post'));
     }
 
     /**
      * Updated
      *
-     * @return void
+     *
      */
-    public function update(): void
+    public function update(Post $post)
     {
-        $post = Post::find(6);
-
-        $post->update([
-            'title' => 'updated',
-            'content' => 'updated',
-            'image' => 'updated',
-            'likes' => 100,
-            'is_published' => 0
+        $data = request()->validate([
+            'title'=> 'string',
+            'content'=> 'string',
+            'image'=> 'string'
         ]);
+        $post->update($data);
 
-        dd('updated');
+        return redirect()->route('post.show', $post->id);
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return redirect()->route('post.index');
     }
 
     /**
