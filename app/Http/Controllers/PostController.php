@@ -47,12 +47,12 @@ class PostController extends Controller
 //        dd ($post->category);
 
         //Отношение многие ко многим
-        $post = Post::find(1);
-        $tag =Tag::find(1);
-        dd ($tag->posts);
+//        $post = Post::find(1);
+//        $tag =Tag::find(1);
+//        dd ($tag->posts);
 
-//        $posts = Post::all();
-//        return view('post.index', compact('posts'));
+        $posts = Post::all();
+        return view('post.index', compact('posts'));
     }
 
     /**
@@ -62,19 +62,21 @@ class PostController extends Controller
      */
     public function create()
     {
+        $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('post.create');
+        return view('post.create', compact('categories', 'tags'));
     }
 
     public function store()
     {
         $data = request()->validate([
-            'title'=> 'string',
-            'content'=> 'string',
-            'image'=> 'string'
+            'title'=> 'required | string',
+            'content'=> 'required | string',
+            'image'=> 'required | string',
+            'category_id'=> 'required | string',
         ]);
         Post::create($data);
-
         return redirect()->route('post.index');
     }
 
@@ -85,7 +87,8 @@ class PostController extends Controller
 
     public function  edit(Post $post)
     {
-        return view('post.edit', compact('post'));
+        $categories = Category::all();
+        return view('post.edit', compact('post', 'categories'));
     }
 
     /**
@@ -98,7 +101,8 @@ class PostController extends Controller
         $data = request()->validate([
             'title'=> 'string',
             'content'=> 'string',
-            'image'=> 'string'
+            'image'=> 'string',
+            'category_id'=> 'string'
         ]);
         $post->update($data);
 

@@ -7,15 +7,49 @@
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" name="title" class="form-control" id="title" placeholder="Title">
+                <input
+                    value="{{old('title')}}"
+                    type="text" name="title" class="form-control" id="title" placeholder="Title">
+                @error('title')
+                    <p class="text-danger">{{$message}}</p>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="content" class="form-label">Content</label>
-                <textarea class="form-control" name="content" id="content" placeholder="Content"></textarea>
+                <textarea class="form-control" name="content" id="content" placeholder="Content">{{old('content')}}</textarea>
+                @error('content')
+                    <p class="text-danger">{{$message}}</p>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="image" class="form-label">Image</label>
-                <input type="text" name="image" class="form-control" id="image" placeholder="Image">
+                <input
+                    value="{{old('image')}}"
+                    type="text" name="image" class="form-control" id="image" placeholder="Image">
+                @error('image')
+                    <p class="text-danger">{{$message}}</p>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <select class="form-select" aria-label="Default select example" name="category_id">
+                    <option selected>Category</option>
+                    @foreach($categories as $category)
+                        <option
+                            {{old('category_id') == $category->id ? 'selected' : ''}}
+                            value="{{$category->id}}">{{$category->title}}</option>
+                    @endforeach
+                </select>
+                @error('category_id')
+                    <p class="text-danger">{{$message}}</p>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <select class="form-select" aria-label="Default select example" name="tags">
+                    <option selected>Tags</option>
+                    @foreach($tags as $tag)
+                        <option value="{{$tag->id}}">{{$tag->title}}</option>
+                    @endforeach
+                </select>
             </div>
             <button type="submit" class="btn btn-primary">Create</button>
         </form>
