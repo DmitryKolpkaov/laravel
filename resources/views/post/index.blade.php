@@ -12,6 +12,7 @@
             <div><a href="{{route('post.show', $post->id)}}">{{$post->id}}. {{$post->title}}</a></div>
             <br>
         @endforeach
+        <hr>
         <div>
             {{$posts->links()}}
         </div>
