@@ -26,7 +26,7 @@ Route::get ('/test', function()
 //Route вывод через контроллер
 
 //MyPlaceController
-Route::get ('/my_place', 'App\Http\Controllers\MyPlaceController@index');
+Route::get ('/', 'App\Http\Controllers\HomeController@index');
 
 //Post
 Route::group(['namespace'=> 'App\Http\Controllers\Post'], function() {
@@ -60,3 +60,7 @@ Route::get ('/posts/update_or_create', 'App\Http\Controllers\PostController@upda
 Route::get ('/main', 'App\Http\Controllers\MainController@index')->name('main.index');
 Route::get ('/contacts', 'App\Http\Controllers\ContactController@index')->name('contact.index');
 Route::get ('/about', 'App\Http\Controllers\AboutController@index')->name('about.index');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
