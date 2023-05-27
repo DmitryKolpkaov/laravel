@@ -25,8 +25,8 @@ Route::get ('/test', function()
 
 //Route вывод через контроллер
 
-//MyPlaceController
-Route::get ('/', 'App\Http\Controllers\HomeController@index');
+//Home
+Route::get ('/', 'App\Http\Controllers\HomeController@index')->name('home');
 
 //Post
 Route::group(['namespace'=> 'App\Http\Controllers\Post'], function() {
@@ -41,7 +41,7 @@ Route::group(['namespace'=> 'App\Http\Controllers\Post'], function() {
 });
 
 //Admin
-Route::group(['namespace'=> 'App\Http\Controllers\Admin', 'prefix' => 'admin'], function(){
+Route::group(['namespace'=> 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => 'admin'], function(){
     Route::group(['namespace'=> 'Post'], function(){
         Route::get( '/post', 'IndexController' )->name( 'admin.post.index' );
     });
